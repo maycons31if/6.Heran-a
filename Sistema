@@ -1,0 +1,100 @@
+package dome.heranca;
+
+import java.util.Scanner;
+
+public class Sistema {
+
+	private BaseDados dados;
+	private Scanner teclado;
+
+	public Sistema() {
+		dados = new BaseDados();
+		teclado = new Scanner(System.in);
+	}
+
+	public static void main(String[] args) {
+		Sistema sis = new Sistema();
+		sis.exibeMenu();
+	}
+
+	private void exibeMenu() {
+		int op;
+		do {
+			System.out.println("0 - Sair");
+			System.out.println("1 - Cadastrar CD");
+			System.out.println("2 - Cadastrar DVD");
+			System.out.println("3 - Cadastrar Game");
+			System.out.println("4 - listar");
+			System.out.println("Digite a Opção: ");
+			op = teclado.nextInt();
+			switch (op) {
+			case 0:
+				System.out.println("Até Mais");
+				break;
+			case 1:
+				cadastrarCd();
+				break;
+			case 2:
+				cadastrarDVD();
+				break;
+			case 3:
+				cadastrarGame();
+				break;
+			case 4:
+				listar();
+				break;
+			}
+		} while (op != 0);
+	}
+
+	private void listar() {
+		dados.listar();
+	}
+
+	private void cadastrarCd() {
+		teclado.nextLine();// limpeza do buffer do scanner
+		
+		System.out.println("Digite o nome do artista");
+		String artista = teclado.nextLine();
+		
+		System.out.println("Digite o comentario");
+		String comentario = teclado.nextLine();
+		
+		System.out.println("Digite o titulo");
+		String titulo = teclado.nextLine();
+		
+		System.out.println("Esta emprestado? (sim/não)");
+		String respostaEmprestado = teclado.nextLine();
+		
+		System.out.println("Numero de musicas do CD");
+		int nroMusicas = teclado.nextInt();
+
+		System.out.println("Tempo de duracao do CD");
+		double tempoDuracao = teclado.nextDouble();
+		
+		Cd cd = new Cd(comentario, titulo, 
+				respostaEmprestado.equals("sim") ? true : false,
+				tempoDuracao, artista, nroMusicas);		
+		dados.inserir(cd);
+	}
+	
+	private void cadastrarDVD() {
+		teclado.nextLine();// limpeza do buffer do scanner
+	}
+	
+	private void cadastrarGame() {
+		teclado.nextLine();// limpeza do buffer do scanner
+		
+		System.out.println("Digite o nome do Jogo");
+		String titulo = teclado.nextLine();
+		
+		System.out.println("Digite o Produtora");
+		String produtora = teclado.nextLine();
+		
+		System.out.println("Digite a Genero");
+		String genero = teclado.nextLine();
+		
+		Game game = new Game(titulo, produtora, genero);		
+		dados.inserir(game);
+	}
+}
